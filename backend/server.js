@@ -15,13 +15,27 @@ connectDB();
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://althealink-production.up.railway.app/'
+];
+
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: function (origin, callback) {
+      // Allow requests with no origin (mobile apps, Postman, etc.)
+      if (!origin) return callback(null, true);
+      
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
     exposedHeaders: ['set-cookie'],
     methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ['Content-Type', 'Authorization'],  
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 
@@ -62,4 +76,4 @@ app.use(errorHandler);
 
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
