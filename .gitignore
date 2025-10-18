@@ -1,0 +1,45 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Env files
+.env
+.env.local
+.env.production
+.env.development
+
+# Build output
+.next/
+dist/
+out/
+build/
+coverage/
+uploads/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+
+# TypeScript
+*.tsbuildinfo
+
+# Editor stuff
+.vscode/
+.idea/
+
+# Backend specific
+backend/node_modules/
+backend/uploads/
+backend/*.env
+
+# Frontend specific
+front-end/node_modules/
+front-end/.next/
+front-end/.env
+front-end/.env.local
