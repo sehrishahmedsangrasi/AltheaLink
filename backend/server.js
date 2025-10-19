@@ -69,7 +69,9 @@ app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api/doctor', require('./routes/doctorRoutes'));
 app.use('/api/public', require('./routes/publicRoutes'));
 app.use('/api/voice', require('./routes/voiceRoutes'));
-app.use("/api/greeting", require('./routes/greetRoutes')); // ⚠️ Changed this!
+app.use("/api/greeting", require('./routes/greetRoutes')); 
+app.get("/", (req, res) => res.send("Welcome to the API"));
+
 
 app.use(notFound);
 app.use(errorHandler);
