@@ -17,7 +17,8 @@ app.use(express.json());
 app.use(cookieParser());
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://althea-link.vercel.app'
+  'https://althea-link.vercel.app',
+  'https://althealink.onrender.com',
 ];
 
 app.use(
