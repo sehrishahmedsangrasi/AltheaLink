@@ -96,5 +96,5 @@ A modern healthcare booking platform that allows patients to schedule appointmen
 
 ---
 
-## 💡 Project by: Sehrish Sangrasi
+## 💡 Project by: Sehrish Ahmed Sangrasi
 Part of **Full-Stack Development Bootcamp (Final Project)**.
