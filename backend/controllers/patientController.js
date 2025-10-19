@@ -62,6 +62,7 @@ const bookAppointment = asyncHandler3(async (req, res) => {
   }
 
   try {
+    // Create appointment first
     const appt = await Appointment2.create({
       patientName: name,
       patientEmail: email,
@@ -76,6 +77,13 @@ const bookAppointment = asyncHandler3(async (req, res) => {
 
     const doctor = await User.findById(doctorId).select("name email");
 
+    // Send response immediately - don't wait for email
+    res.status(201).json({ 
+      message: "Appointment booked successfully", 
+      appt 
+    });
+
+    // Send email asynchronously (fire and forget)
     const emailHTML = `
       <div style="font-family:sans-serif;">
         <h2>Appointment Confirmed ✅</h2>
@@ -90,9 +98,16 @@ const bookAppointment = asyncHandler3(async (req, res) => {
       </div>
     `;
 
-    await sendEmail(email, "Your Appointment is Confirmed!", emailHTML);
+    // Send email without blocking response
+    sendEmail(email, "Your Appointment is Confirmed!", emailHTML)
+      .then(() => {
+        console.log(`✅ Confirmation email sent to ${email}`);
+      })
+      .catch((err) => {
+        console.error(`❌ Failed to send email to ${email}:`, err.message);
+        // Consider logging to a monitoring service or retry queue
+      });
 
-    res.status(201).json({ message: "Appointment booked and email sent", appt });
   } catch (err) {
     if (err.code === 11000) {
       res.status(409);
