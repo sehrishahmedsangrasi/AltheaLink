@@ -138,12 +138,12 @@ export default function BookPageContent() {
 
     try {
       console.log("📡 Fetching greeting audio...");
-      const ttsRes = await fetch("http://localhost:5000/api/greeting/patient-info");
+      const ttsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/greeting/patient-info`);
 
       if (!ttsRes.ok) throw new Error(`Greeting API error: ${ttsRes.status}`);
 
       const { audioUrl } = await ttsRes.json();
-      const fullUrl = `http://localhost:5000${audioUrl}`;
+      const fullUrl = `${process.env.NEXT_PUBLIC_API_URL}${audioUrl}`;
       console.log("🔊 Playing greeting from:", fullUrl);
 
       const audio = new Audio(fullUrl);
@@ -241,7 +241,7 @@ export default function BookPageContent() {
       formData.append("existingData", JSON.stringify(form));
       console.log("📦 FormData prepared with existing form data:", form);
 
-      const res = await fetch("http://localhost:5000/api/voice/process-patient-info", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/voice/process-patient-info`, {
         method: "POST",
         body: formData,
       });
@@ -294,7 +294,7 @@ export default function BookPageContent() {
       // Play bot reply audio
       if (audioUrl) {
         console.log("🔊 Playing bot reply audio");
-        const botAudio = new Audio(`http://localhost:5000${audioUrl}?v=${Date.now()}`);
+        const botAudio = new Audio(`${process.env.NEXT_PUBLIC_API_URL}${audioUrl}?v=${Date.now()}`);
         
         botAudio.onended = async () => {
           console.log("✅ Bot audio finished");

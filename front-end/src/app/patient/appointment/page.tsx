@@ -41,7 +41,7 @@ export default function DoctorsPage() {
   const playGreeting = async () => {
     try {
       console.log("🎵 Fetching greeting from backend...");
-      const res = await fetch("http://localhost:5000/api/greeting/greet");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/greeting/greet`);
       
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
@@ -57,7 +57,7 @@ export default function DoctorsPage() {
           audioRef.current = null;
         }
 
-        const audioUrl = `http://localhost:5000${data.audioUrl}?t=${Date.now()}`;
+        const audioUrl = `${process.env.NEXT_PUBLIC_API_URL}${data.audioUrl}?t=${Date.now()}`;
         console.log("Playing audio from:", audioUrl);
         
         const audio = new Audio(audioUrl);
@@ -199,7 +199,7 @@ const sendAudioToBackend = async (audioBlob: Blob) => {
     const formData = new FormData();
     formData.append("audio", audioBlob, "recording.webm");
 
-    const res = await fetch("http://localhost:5000/api/voice/process", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/voice/process`, {
       method: "POST",
       body: formData,
     });
@@ -260,7 +260,7 @@ const sendAudioToBackend = async (audioBlob: Blob) => {
         audioRef.current = null;
       }
 
-      const audio = new Audio(`http://localhost:5000${data.audioUrl}?t=${Date.now()}`);
+      const audio = new Audio(`${process.env.NEXT_PUBLIC_API_URL}${data.audioUrl}?t=${Date.now()}`);
       audioRef.current = audio;
 
       audio.play().catch(err => console.error("🎧 Audio play error:", err));

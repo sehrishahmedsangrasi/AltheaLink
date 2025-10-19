@@ -41,12 +41,12 @@ export default function DoctorDetailPage() {
     setIsProcessing(true);
 
     try {
-      const ttsRes = await fetch("http://localhost:5000/api/greeting/date-prompt");
+      const ttsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/greeting/date-prompt`);
 
       if (!ttsRes.ok) throw new Error(`TTS API error: ${ttsRes.status}`);
 
       const { audioUrl } = await ttsRes.json();
-      const fullUrl = `http://localhost:5000${audioUrl}`;
+      const fullUrl = `${process.env.NEXT_PUBLIC_API_URL}${audioUrl}`;
 
       const audio = new Audio(fullUrl);
 
@@ -140,7 +140,7 @@ export default function DoctorDetailPage() {
       formData.append("availableSlots", JSON.stringify([]));
       console.log("📦 FormData prepared, sending to backend...");
 
-      const res = await fetch("http://localhost:5000/api/voice/process-date", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/voice/process-date`, {
         method: "POST",
         body: formData,
       });
@@ -194,7 +194,7 @@ export default function DoctorDetailPage() {
                 const ttsMessage = `Sorry, the time slot ${extractedTime} is not available. Please select from the available slots shown on screen.`;
                 console.log("📢 TTS Message:", ttsMessage);
                 
-                const ttsRes = await fetch("http://localhost:5000/api/greeting/slot-unavailable-tts", {
+                const ttsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/greeting/slot-unavailable-tts`, {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({ message: ttsMessage }),
@@ -207,7 +207,7 @@ export default function DoctorDetailPage() {
                 console.log("🤖 TTS API response:", ttsData);
 
                 if (ttsData.audioUrl) {
-                  const audioPath = `http://localhost:5000${ttsData.audioUrl}?v=${Date.now()}`;
+                  const audioPath = `${process.env.NEXT_PUBLIC_API_URL}${ttsData.audioUrl}?v=${Date.now()}`;
                   console.log("🔊 Playing unavailable slot audio from:", audioPath);
                   const audio = new Audio(audioPath);
                   audio.load();
@@ -238,7 +238,7 @@ export default function DoctorDetailPage() {
               const confirmMessage = `Great! Your appointment is confirmed for ${extractedDate} at ${extractedTime}. Let's proceed to the next step.`;
               console.log("📢 Confirmation Message:", confirmMessage);
               
-              const confirmRes = await fetch("http://localhost:5000/api/greeting/slot-confirmed-tts", {
+              const confirmRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/greeting/slot-confirmed-tts`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 
@@ -255,7 +255,7 @@ export default function DoctorDetailPage() {
               console.log("🤖 Confirmation TTS response:", confirmData);
 
               if (confirmData.audioUrl) {
-                const audioPath = `http://localhost:5000${confirmData.audioUrl}?v=${Date.now()}`;
+                const audioPath =`${process.env.NEXT_PUBLIC_API_URL}${confirmData.audioUrl}?v=${Date.now()}`;
                 console.log("🔊 Playing confirmation audio from:", audioPath);
                 const audio = new Audio(audioPath);
                 audio.load();
@@ -311,7 +311,7 @@ export default function DoctorDetailPage() {
       // ✅ Play standard bot reply if no time was extracted
       if (audioUrl && !extractedTime) {
         console.log("🔊 Playing standard bot reply (no time extracted)");
-        const botAudio = new Audio(`http://localhost:5000${audioUrl}?v=${Date.now()}`);
+        const botAudio = new Audio(`${process.env.NEXT_PUBLIC_API_URL}${audioUrl}?v=${Date.now()}`);
         botAudio.play().catch(err => console.warn("Bot audio play error:", err));
       }
 
