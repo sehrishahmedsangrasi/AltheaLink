@@ -13,8 +13,13 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
+// ✅ FIX: Enable trust proxy for Render/Railway/Vercel
+app.set('trust proxy', 1);
+
 app.use(express.json());
 app.use(cookieParser());
+
 const allowedOrigins = [
   'http://localhost:3000',
   'https://althea-link.vercel.app',
@@ -48,19 +53,23 @@ app.use((req, res, next) => {
   next();
 });
 
-
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
-const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
+const limiter = rateLimit({ 
+  windowMs: 15 * 60 * 1000, 
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 app.use(limiter);
 
-// ✅ Serve static files from uploads folder
+// ✅ FIX: Serve static files with dynamic CORS
 app.use(
   '/uploads',
   express.static(path.join(__dirname, 'uploads'), {
-    setHeaders: (res) => {
+    setHeaders: (res, filePath) => {
       res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
-      res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+      res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins for images
     },
   })
 );
@@ -73,10 +82,8 @@ app.use('/api/voice', require('./routes/voiceRoutes'));
 app.use("/api/greeting", require('./routes/greetRoutes')); 
 app.get("/", (req, res) => res.send("Welcome to the API"));
 
-
 app.use(notFound);
 app.use(errorHandler);
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
