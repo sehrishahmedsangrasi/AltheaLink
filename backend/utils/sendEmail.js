@@ -1,19 +1,21 @@
+// sendEmail.js
 const nodemailer = require("nodemailer");
 
 const sendEmail = async (to, subject, html) => {
   try {
-   
+    // Create transporter using Mailtrap SMTP
     const transporter = nodemailer.createTransport({
-      service: "gmail", 
+      host: process.env.MAILTRAP_HOST, 
+      port: process.env.MAILTRAP_PORT, 
       auth: {
-        user: process.env.EMAIL_USER, 
-        pass: process.env.EMAIL_PASS, 
+        user: process.env.MAILTRAP_USER, 
+        pass: process.env.MAILTRAP_PASS, 
       },
     });
 
-    
+    // Send mail
     await transporter.sendMail({
-      from: `"AltheaLink" <${process.env.EMAIL_USER}>`,
+      from: `"AltheaLink" <no-reply@althealink.com>`, 
       to,
       subject,
       html,
