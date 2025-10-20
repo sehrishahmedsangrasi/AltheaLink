@@ -92,7 +92,7 @@ const bookAppointment = asyncHandler3(async (req, res) => {
         <p><b>Doctor:</b> ${doctor.name}</p>
         <p><b>Date:</b> ${date}</p>
         <p><b>Time:</b> ${time}</p>
-        <p>Thank you for choosing CareConnect. We look forward to seeing you soon!</p>
+        <p>Thank you for choosing AltheaLink. We look forward to seeing you soon!</p>
         <br/>
         <p style="font-size:12px;color:gray;">CareConnect © 2025</p>
       </div>
