@@ -88,6 +88,7 @@ const Home: React.FC = () => {
     };
     fetchTopDocs();
   }, []);
+  
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 50 },
@@ -360,4 +361,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Home ;
