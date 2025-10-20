@@ -322,8 +322,15 @@ const AboutUs = () => {
                     alt={member.name}
                     className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#5DC4C7] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                  {/* Mobile: Always visible names at bottom */}
+                  <div className="md:hidden absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#5DC4C7] to-transparent p-6 text-white">
+                    <h4 className="text-xl font-bold mb-1">{member.name}</h4>
+                    <p className="text-sm text-white/90">{member.role}</p>
+                  </div>
+                  
+                  {/* Desktop: Hover effect with overlay */}
+                  <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-[#5DC4C7] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="hidden md:block absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                     <h4 className="text-xl font-bold mb-1">{member.name}</h4>
                     <p className="text-sm text-white/80">{member.role}</p>
                   </div>
