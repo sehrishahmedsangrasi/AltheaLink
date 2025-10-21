@@ -363,7 +363,7 @@ const fetchStats = async () => {
                 { name: "Pulmonologist", img: "/lungs.png", desc: "Lungs specialist", color: "from-blue-500 to-cyan-500" },
                 { name: "Dermatologist", img: "/care.png", desc: "Skin specialist", color: "from-green-500 to-emerald-500" },
                 { name: "Nephrologist", img: "/kidney.png", desc: "Kidney specialist", color: "from-yellow-500 to-orange-500" },
-                { name: "Obstetrician", img: "/Obstetrics.png", desc: "Pregnancy & childbirth", color: "from-pink-500 to-rose-500" },
+                { name: "Obstetrician", img: "/obstetrics.png", desc: "Pregnancy & childbirth", color: "from-pink-500 to-rose-500" },
                 { name: "Rheumatologist", img: "/arthritis.png", desc: "Arthritis & joints", color: "from-indigo-500 to-purple-500" },
                 { name: "Pediatrician", img: "/pediatric.png", desc: "Child specialist", color: "from-cyan-500 to-blue-500" },
               ].map((spec) => (
