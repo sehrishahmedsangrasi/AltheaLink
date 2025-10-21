@@ -166,7 +166,7 @@ const Home: React.FC = () => {
               We are revolutionising healthcare
             </h2>
             <p className="text-base sm:text-lg mb-6">
-              Getz Pharma is an international research-driven, branded generic manufacturing company with a global outlook. It currently operates in 45+ countries, with 8,000+ employees worldwide.
+              AltheaLink is an international research-driven, branded generic manufacturing company with a global outlook. It currently operates in 45+ countries, with 8,000+ employees worldwide.
             </p>
             <button
               className="relative overflow-hidden text-base sm:text-lg md:text-xl font-semibold px-6 sm:px-8 py-3 bg-primary text-white rounded-full group"
