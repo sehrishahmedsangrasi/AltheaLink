@@ -318,26 +318,19 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Stats Summary Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <div className="bg-white p-4 rounded-xl shadow-md text-center">
-            <div className="text-2xl font-bold mb-1" style={{ color: '#5DC4C7' }}>
-              {data.popularDoctors.length}
-            </div>
-            <div className="text-xs" style={{ color: '#06434D', opacity: 0.6 }}>Active Doctors</div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="bg-white p-4 rounded-xl shadow-md text-center">
+          <div className="text-2xl font-bold mb-1" style={{ color: '#06434D' }}>
+            {data.popularSpecializations.length}
           </div>
-          <div className="bg-white p-4 rounded-xl shadow-md text-center">
-            <div className="text-2xl font-bold mb-1" style={{ color: '#06434D' }}>
-              {data.popularSpecializations.length}
-            </div>
-            <div className="text-xs" style={{ color: '#06434D', opacity: 0.6 }}>Specializations</div>
+          <div className="text-xs" style={{ color: '#06434D', opacity: 0.6 }}>Specializations</div>
+        </div>
+        <div className="bg-white p-4 rounded-xl shadow-md text-center">
+          <div className="text-2xl font-bold mb-1" style={{ color: '#5DC4C7' }}>
+            {Math.round(data.totalAppointments / data.totalDoctors)}
           </div>
-          <div className="bg-white p-4 rounded-xl shadow-md text-center">
-            <div className="text-2xl font-bold mb-1" style={{ color: '#5DC4C7' }}>
-              {Math.round(data.totalAppointments / data.totalDoctors)}
-            </div>
-            <div className="text-xs" style={{ color: '#06434D', opacity: 0.6 }}>Avg per Doctor</div>
-          </div>
-          
+          <div className="text-xs" style={{ color: '#06434D', opacity: 0.6 }}>Avg per Doctor</div>
+        </div>
         </div>
       </main>
     </div>
